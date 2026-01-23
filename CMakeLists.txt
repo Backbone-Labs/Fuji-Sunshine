@@ -4,15 +4,15 @@ cmake_minimum_required(VERSION 3.20)
 # `cmake_path(CONVERT ... TO_NATIVE_PATH_LIST ...)` requires 3.20
 # todo - set this conditionally
 
-project(Sunshine VERSION 0.0.0
-        DESCRIPTION "Self-hosted game stream host for Moonlight"
-        HOMEPAGE_URL "https://app.lizardbyte.dev/Sunshine")
+project(BackbonePCStreaming VERSION 0.0.0
+        DESCRIPTION "Backbone PC Streaming"
+        HOMEPAGE_URL "https://playbackbone.com")
 
 set(PROJECT_LICENSE "GPL-3.0-only")
 
-set(PROJECT_FQDN "dev.lizardbyte.app.Sunshine")
+set(PROJECT_FQDN "com.backbone.pcstreaming")
 
-set(PROJECT_BRIEF_DESCRIPTION "GameStream host for Moonlight")  # must be <= 35 characters
+set(PROJECT_BRIEF_DESCRIPTION "Backbone PC Streaming")  # must be <= 35 characters
 
 set(PROJECT_LONG_DESCRIPTION "Offering low latency, cloud gaming server capabilities with support for AMD, Intel, \
 and Nvidia GPUs for hardware encoding. Software encoding is also available. You can connect to Sunshine from any \

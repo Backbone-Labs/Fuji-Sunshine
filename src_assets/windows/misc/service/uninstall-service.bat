@@ -33,8 +33,8 @@ if %ERRORLEVEL%==0 (
 )
 
 rem Stop and delete the legacy SunshineSvc service
-net stop sunshinesvc
-sc delete sunshinesvc
+net stop backbonesvc
+sc delete backbonesvc
 
 rem Stop and delete the new SunshineService service
 net stop SunshineService
