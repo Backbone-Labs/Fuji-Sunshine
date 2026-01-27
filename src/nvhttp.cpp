@@ -659,7 +659,9 @@ namespace nvhttp {
 
           BOOST_LOG(info) << "OTP validation successful - auto-pairing";
 
-          if (!otp_device_name.empty()) {
+          // Prefer the client-provided name (from pairing request devicename field).
+          // Only fall back to OTP device name if the client didn't provide one.
+          if (ptr->second.client.name.empty() && !otp_device_name.empty()) {
             ptr->second.client.name = std::move(otp_device_name);
           }
 
@@ -741,6 +743,13 @@ namespace nvhttp {
         sess.client.uniqueID = std::move(uniqID);
         sess.client.cert = util::from_hex_vec(get_arg(args, "clientcert"), true);
 
+        // Capture the client-provided device name from the pairing request
+        auto devicename_it = args.find("devicename");
+        if (devicename_it != std::end(args) && !devicename_it->second.empty()) {
+          sess.client.name = devicename_it->second;
+          BOOST_LOG(info) << "Client device name from pairing request: " << sess.client.name;
+        }
+
         BOOST_LOG(debug) << sess.client.cert;
         auto ptr = map_id_sess.emplace(sess.client.uniqueID, std::move(sess)).first;
 
@@ -799,7 +808,9 @@ namespace nvhttp {
               otp_log << "✓ OTP validation successful - auto-pairing" << std::endl;
               otp_log.close();
               BOOST_LOG(info) << "OTP validation successful - auto-pairing";
-              if (!otp_device_name.empty()) {
+              // Prefer the client-provided name (from pairing request devicename field).
+              // Only fall back to OTP device name if the client didn't provide one.
+              if (ptr->second.client.name.empty() && !otp_device_name.empty()) {
                 ptr->second.client.name = std::move(otp_device_name);
               }
 
