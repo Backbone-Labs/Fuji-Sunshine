@@ -613,6 +613,13 @@ namespace nvhttp {
         sess.client.uniqueID = std::move(uniqID);
         sess.client.cert = util::from_hex_vec(get_arg(args, "clientcert"), true);
 
+        // Capture the client-provided device name from the autopair request
+        auto devicename_it = args.find("devicename");
+        if (devicename_it != std::end(args) && !devicename_it->second.empty()) {
+          sess.client.name = devicename_it->second;
+          BOOST_LOG(info) << "Client device name from autopair request: " << sess.client.name;
+        }
+
         auto ptr = map_id_sess.emplace(sess.client.uniqueID, std::move(sess)).first;
         ptr->second.async_insert_pin.salt = std::move(get_arg(args, "salt"));
 
